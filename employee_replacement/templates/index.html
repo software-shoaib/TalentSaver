@@ -27,7 +27,26 @@
             });
             let result = await response.json();
             let resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<h2>Best Replacements:</h2><pre>' + JSON.stringify(result, null, 2) + '</pre>';
+            
+            if (result.length > 0) {
+                let table = '<h2>Best Replacements:</h2><table><thead><tr>';
+                let keys = Object.keys(result[0]);
+                for (let key of keys) {
+                    table += '<th>' + key + '</th>';
+                }
+                table += '</tr></thead><tbody>';
+                for (let row of result) {
+                    table += '<tr>';
+                    for (let key of keys) {
+                        table += '<td>' + row[key] + '</td>';
+                    }
+                    table += '</tr>';
+                }
+                table += '</tbody></table>';
+                resultDiv.innerHTML = table;
+            } else {
+                resultDiv.innerHTML = '<h2>No suitable replacements found.</h2>';
+            }
         };
     </script>
 </body>

@@ -52,10 +52,21 @@ button:hover {
     text-align: center;
 }
 
-pre {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    display: inline-block;
-    text-align: left;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
 }

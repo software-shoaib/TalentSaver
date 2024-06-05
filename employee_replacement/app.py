@@ -68,7 +68,12 @@ def find_replacement():
     top_candidates = data.iloc[indices[0]]
     top_candidates = top_candidates[top_candidates['Stay/Left'] == label_encoders['Stay/Left'].transform(['Stay'])[0]]
 
+    # Select necessary columns for output
+    output_columns = ['table id', 'name', 'Age in YY.', 'Location', 'Emp. Group', 'Function', 'Gender', 'Tenure', 'Experience (YY.MM)', 'Marital Status', 'Hiring Source', 'Promoted/Non Promoted', 'Job Role Match']
+    top_candidates = top_candidates[output_columns]
+
     return jsonify(top_candidates.to_dict(orient='records'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
