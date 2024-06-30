@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home</title>
+  <title>Users</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <style>
     body {
@@ -18,7 +18,8 @@
     }
     </style>
 </head>
-<body>
+
+  <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TalentSaver</a>
@@ -46,17 +47,10 @@
       </div>
     </div>
   </nav>
+  
   <div class="container mt-5">
     <h1>Welcome to TalentSaver</h1>
-    <div class="row">
-    <div class="col">
-      <p>This Flask web application is designed to manage user authentication and facilitate employee data processing through machine learning techniques. It features user registration and login functionalities secured by hashed passwords. Once logged in, users can upload employee data in CSV format, which is processed to predict employee retention using a RandomForestClassifier model. The application also supports finding suitable replacement candidates for employees who leave the organization by leveraging the NearestNeighbors algorithm. The code ensures data integrity by using SQLAlchemy for database interactions, with a user model defined for managing user credentials and sessions. The application includes several routes to render different HTML templates for user interactions, upload files, and display results.</p>
-    </div>
-    <div class="col">
-      <img src="\static\download.jpg" height="300" >
-
-    </div>
-  </div>
+    <p>This is the users page.</p>
   </div>
 </body>
 </html>

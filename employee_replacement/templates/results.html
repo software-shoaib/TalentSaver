@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Replacement Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+          background: linear-gradient(45deg, #ADD8E6, #0000CD, #00008B);
+          color: white;
+        }
+        
+        /* Gradient animation */
+        @keyframes gradientAnimation {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        </style>
+</head>
+<body> 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">TalentSaver</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/results">Check Replacements</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>          
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">logout</a>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </nav>
+      
+    <div class="container mt-4 pt-4">
+        <h1>Find Best Replacement for Leaving Employee</h1>
+        <div class="input-group mb-3">
+            <form id="upload-form" method="POST" enctype="multipart/form-data" class="w-100">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="csvFile" name="csvFile" accept=".csv" required>
+                        <label class="custom-file-label" for="csvFile">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Upload</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="file-path" class="mt-2"></div>
+        <br><br>
+        <form action="/find_replacement" method="post" id="replacementForm">
+            <div class="form-group">
+                <label for="employee_id">Enter Employee ID:</label>
+                <input type="number" class="form-control col-sm-3" id="employee_id" name="employee_id" required>
+            </div>
+            <button type="submit" class="btn btn-dark">Find Replacement</button>
+        </form>
+        <br><br>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('upload-form').onsubmit = async function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+            let response = await fetch('/upload_csv', {
+                method: 'POST',
+                body: formData
+            });
+            let result = await response.json();
+            let filePathDiv = document.getElementById('file-path');
+            if (result.filepath) {
+                filePathDiv.innerHTML = `<p>File uploaded successfully! File path: ${result.filepath}</p>`;
+            } else {
+                filePathDiv.innerHTML = `<p>Error uploading file.</p>`;
+            }
+        };
+
+        document.getElementById('replacementForm').onsubmit = async function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+            let response = await fetch('/find_replacement', {
+                method: 'POST',
+                body: formData
+            });
+            let result = await response.json();
+            let resultDiv = document.getElementById('result');
+            
+            if (result.length > 0) {
+                let table = '<h2>Best Replacements:</h2><br><table class="table"><thead><tr>';
+                let keys = Object.keys(result[0]);
+                for (let key of keys) {
+                    table += '<th>' + key + '</th>';
+                }
+                table += '</tr></thead><tbody>';
+                for (let row of result) {
+                    table += '<tr>';
+                    for (let key of keys) {
+                        table += '<td>' + row[key] + '</td>';
+                    }
+                    table += '</tr>';
+                }
+                table += '</tbody></table>';
+                resultDiv.innerHTML = table;
+            } else {
+                resultDiv.innerHTML = '<h2>No suitable replacements found.</h2>';
+            }
+        };
+    </script>
+</body>
+</html>
