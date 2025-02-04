@@ -1,4 +1,5 @@
 <img src="logo finalized.png" alt="Alt text" title="Optional title">
+
 # TalentSaver: Employee Attrition Prediction & Replacement System
 
 **TalentSaver** is a cutting-edge, machine learning-based solution designed to address employee attrition and replacement challenges within organizations. This project predicts employee attrition and suggests suitable replacements within the organization to ensure a seamless transition and minimize productivity disruptions.
