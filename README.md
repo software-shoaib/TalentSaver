@@ -69,7 +69,7 @@
 ---
 
 ### Contributors
-- **Shoaib Ahmed (Group Leader & Project Leader)**
+- **Shoaib Ahmed (Group Leader & Project Lead)**
 - **Abdul Basit Memon**
 - **Muhammad Muzammil Naveed**
 - **Muhammad Imtiaz Ali**
